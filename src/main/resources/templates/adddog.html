@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Lisää käyttökoiran tiedot</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+
+     <!--   <h1 th text="'Nyt voit lisätä käyttökoiran tiedot, ' + ${KAYTTAJANNIMI}" + '!'></h1> -->
+
+     <!-- Validoi koiran tiedot (luokassa) -->
+    
+
+
+      <h1 th text="'Täytä koiran tiedot: '"></h1>
+
+
+
+    <form th:action="@{/save}" th:object="${dog}" method="POST">
+
+     <table>
+          <tr>
+               <td>Koiran nimi: </td>
+               <td><input type="text" th:field="*{dogname}"/></td>
+                <td th:if="${#fields.hasErrors('dogname')}" th:errors="*{dogname}">Koiran nimi Virheviesti</td>
+               </tr>
+
+
+     <!-- Rotu-pudotusvalikko tähän -->
+     <!-- <select th:field="*{breed}" >    -->
+     <!--          <option th:each="cat: ${breeds}" th:value="${breed.id}" th:text="${breed.name}"></option>   -->
+     <!--   </select>  -->
+
+<tr>
+<td>Sukupuoli:</td>
+<td><input type="text" th:field="*{gender}"/></td>
+<td th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">Sukupuoli Virheviesti</td>
+</tr>
+
+<tr>
+<td>Syntymävuosi:</td>
+<td><input type="text" th:field="*{birthyear}"/></td>
+<td th:if="${#fields.hasErrors('birthyear')}" th:errors="*{birthyear}">Syntymävuosi Virheviesti</td>
+</tr>
+
+<tr>
+     <td>Omistaja:</td>
+     <td><input type="text" th:field="*{owner}"/></td>
+     <td th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}">Omistaja Virheviesti</td>
+</tr>
+
+<tr>
+     <td>Lajit:</td>
+     <td><input type="text" th:field="*{activities}"/></td>
+     <td th:if="${#fields.hasErrors('activities')}" th:errors="*{activities}">Lajit Virheviesti</td>
+</tr>
+
+<tr>
+     <td>Kuvaus:</td>
+     <td><input type="text" th:field="*{description}"/></td>
+     <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Kuvaus Virheviesti</td>
+</tr>
+</table>
+
+    <input type="submit" value="save"/>
+    </form>
+
+
+
+
+
+
+
+
+
+
+     <!-- <h1>Kirjautuneena: <span sec:authentication="name"></span></h1>  -->
+     <!-- <h1>Oikeutesi: <span sec:authentication="principal.authorities">[ROOLI_USER, ROOLI_ADMIN]</span></h1>  -->
+
+
+
+	</body>
+</html>
