@@ -7,18 +7,20 @@
 
 	</head>
 	<body>
+	<div class="container">
 
      <!--/*   <h1 th:text="'Tervetuloa Salmeron Palveluskoirat ry:n sivuille ' + ${KAYTTAJANNIMI}" + '!'></h1> */-->
 
 
 
 
-      <h1 th:text="'Lista käyttökoiristamme: '"></h1>
+    <p><h1 th:text="'Lista käyttökoiristamme: '"></h1></p>
 
-     <table>
+     <table class="table table-bordered">
 		<tr>
         <th>Id</th>
         <th>Nimi</th>
+        <th>Rotu</th>
         <th>Sukupuoli</th>
         <th>Syntymävuosi</th>
         <th>Omistaja</th>
@@ -29,7 +31,9 @@
 <tr th:each="dog : ${dogs}">
 	<td th:text="${dog.id}">Id</td>
     <td th:text="${dog.dogname}">Nimi</td>
-    
+
+    <td th:text="${dog.breed.breedname}">Nimi</td>
+
 	<td th:text="${dog.gender}">Sukupuoli</td>
     <td th:text="${dog.birthyear}">Syntymävuosi</td>
 	<td th:text="${dog.owner}">Omistaja</td>
@@ -38,6 +42,7 @@
 </tr>
 
 
+</div>
 </table>
 
 <a href="/adddog" class="btn btn-primary">Lisää koira</a>

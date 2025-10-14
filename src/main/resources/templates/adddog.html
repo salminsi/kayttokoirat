@@ -6,6 +6,7 @@
           <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 	</head>
 	<body>
+     <div class="container">
 
      <!--   <h1 th text="'Nyt voit lisätä käyttökoiran tiedot, ' + ${KAYTTAJANNIMI}" + '!'></h1> -->
 
@@ -13,57 +14,62 @@
     
 
 
-      <h1 th:text="'Täytä koiran tiedot: '"></h1>
+      <p><h1 th:text="'Täytä koiran tiedot: '"></h1></p>
 
 
 
     <form th:action="@{/save}" th:object="${dog}" method="POST">
 
-     <table>
+     <table class="table table-striped">
           <tr>
                <td>Koiran nimi: </td>
-               <td><input type="text" th:field="*{dogname}"/></td>
-                <td th:if="${#fields.hasErrors('dogname')}" th:errors="*{dogname}">Koiran nimi Virheviesti</td>
+               <td><input type="text" th:field="*{dogname}" /></td>
+                <td th:if="${#fields.hasErrors('dogname')}" th:errors="*{dogname}" class="text-danger">Koiran nimi Virheviesti</td>
                </tr>
 
 
      <!-- Rotu-pudotusvalikko tähän -->
-     <!-- <select th:field="*{breed}" >    -->
-     <!--          <option th:each="cat: ${breeds}" th:value="${breed.id}" th:text="${breed.name}"></option>   -->
-     <!--   </select>  -->
+               <tr><td>Rotu:</td>
+               <td><select id="breedlist" th:field="*{breed}">
+	          <option th:each="breed: ${breeds}"
+		     th:value="${breed.id}"
+		     th:text="${breed.breedname}"></option>
+               </select></td></tr>
 
 <tr>
 <td>Sukupuoli:</td>
 <td><input type="text" th:field="*{gender}"/></td>
-<td th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">Sukupuoli Virheviesti</td>
+<td th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="text-danger">Sukupuoli Virheviesti</td>
 </tr>
 
 <tr>
 <td>Syntymävuosi:</td>
 <td><input type="text" th:field="*{birthyear}"/></td>
-<td th:if="${#fields.hasErrors('birthyear')}" th:errors="*{birthyear}">Syntymävuosi Virheviesti</td>
+<td th:if="${#fields.hasErrors('birthyear')}" th:errors="*{birthyear}" class="text-danger">Syntymävuosi Virheviesti</td>
 </tr>
 
 <tr>
      <td>Omistaja:</td>
      <td><input type="text" th:field="*{owner}"/></td>
-     <td th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}">Omistaja Virheviesti</td>
+     <td th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}" class="text-danger">Omistaja Virheviesti</td>
 </tr>
 
 <tr>
      <td>Lajit:</td>
      <td><input type="text" th:field="*{activities}"/></td>
-     <td th:if="${#fields.hasErrors('activities')}" th:errors="*{activities}">Lajit Virheviesti</td>
+     <td th:if="${#fields.hasErrors('activities')}" th:errors="*{activities}" class="text-danger">Lajit Virheviesti</td>
 </tr>
 
 <tr>
      <td>Kuvaus:</td>
      <td><input type="text" th:field="*{description}"/></td>
-     <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Kuvaus Virheviesti</td>
+     <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger">Kuvaus Virheviesti</td>
 </tr>
+
+</div>
 </table>
 
-    <input type="submit" value="save"/>
+    <input type="submit" class="btn btn-primary" value="Tallenna"/>
     </form>
 
 

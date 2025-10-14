@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -18,12 +19,12 @@ public class Dog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Nimi ei voi olla tyhjä.")
     @Size(min = 1, max = 50, message = "Kirjaimia tulee olla 1-50.")
     private String dogname;
 
-    // @ManyToOne
-    // private breed_id; //breedid tulee tietokannasta/foreignkey
+    @ManyToOne
+    @JoinColumn(name="breedid")
+    private Breed breed; //breed_id tulee tietokannasta/foreignkey
 
     @NotEmpty(message = "Sukupuoli ei voi olla tyhjä.")
     private String gender;
@@ -32,17 +33,16 @@ public class Dog {
     @Max(value = 2030, message = "Syntymävuosi ei voi olla tulevaisuudessa.")
     private int birthyear;
 
-    @NotEmpty(message = "Omistaja ei voi olla tyhjä.")
-    @Size(min = 2, max = 50, message = "Kirjaimia tulee olla 1-50.")
+    @Size(min = 2, max = 50, message = "Kirjaimia tulee olla 2-50.")
     private String owner;
 
-    @Size(min = 0, max = 250, message = "Kirjaimia saa olla maksimissaan 250.")
+    @Size(min = 1, max = 300, message = "Lajit, joissa ansioitunut/harrastaa.")
     private String activities;
 
-    @Size(min = 0, max = 500, message = "Kirjaimia saa olla maksimissaan 500.")
+    @Size(min = 1, max = 500, message = "Lyhyt kuvailu koiran ominaisuuksista (max. 500 kirjainta).")
     private String description;
 
-    // rotu voisi tulla "kategoriasta" breed/breedRepository. Miten saa uuden
+    // rotu tulee breed/breedRepository. Miten saa uuden
     // lisättyä tai "muu"?
     // entä lajit? Olisiko myös pudotusvalikko? Samoin sukupuoli??
 
@@ -51,14 +51,18 @@ public class Dog {
     public Dog() {
     }
 
-    public Dog(
-            @NotEmpty(message = "Nimi ei voi olla tyhjä.") @Size(min = 1, max = 50, message = "Kirjaimia tulee olla 1-50.") String dogname,
-            @NotEmpty(message = "Sukupuoli ei voi olla tyhjä.") String gender,
-            @Min(value = 2000, message = "Syntymävuosi ei voi olla ennen vuotta 2000.") @Max(value = 2030, message = "Syntymävuosi ei voi olla tulevaisuudessa.") int birthyear,
-            @NotEmpty(message = "Omistaja ei voi olla tyhjä.") @Size(min = 2, max = 50, message = "Kirjaimia tulee olla 1-50.") String owner,
-            @Size(min = 0, max = 250, message = "Kirjaimia saa olla maksimissaan 250.") String activities,
-            @Size(min = 0, max = 500, message = "Kirjaimia saa olla maksimissaan 500.") String description) {
+    public Dog(String dogname, String gender, int birthyear, String owner, String activities, String description) {
         this.dogname = dogname;
+        this.gender = gender;
+        this.birthyear = birthyear;
+        this.owner = owner;
+        this.activities = activities;
+        this.description = description;
+    }
+
+    public Dog(String dogname, Breed breed, String gender, int birthyear, String owner, String activities, String description) {
+        this.dogname = dogname;
+        this.breed = breed;
         this.gender = gender;
         this.birthyear = birthyear;
         this.owner = owner;
@@ -122,7 +126,20 @@ public class Dog {
         this.description = description;
     }
 
-    // lisää vielä myöhemmin toString kun on kaikki sekä puuttuvat knstruktoriin ja
-    // get+set!!
+    public Breed getBreed() {
+        return breed;
+    }
+
+    public void setBreed(Breed breed) {
+        this.breed = breed;
+    }
+
+    @Override
+    public String toString() {
+        return "Dog [id=" + id + ", dogname=" + dogname + ", breed=" + breed + ", gender=" + gender + ", birthyear="
+                + birthyear + ", owner=" + owner + ", activities=" + activities + ", description=" + description + "]";
+    }
+
+    
 
 }

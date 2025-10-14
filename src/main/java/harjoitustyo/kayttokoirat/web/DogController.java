@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import harjoitustyo.kayttokoirat.domain.BreedRepository;
 import harjoitustyo.kayttokoirat.domain.Dog;
 import harjoitustyo.kayttokoirat.domain.DogRepository;
 import jakarta.validation.Valid;
@@ -16,12 +17,15 @@ import jakarta.validation.Valid;
 
 public class DogController {
 
-    @Autowired
+    // @Autowired
     private DogRepository dogRepository;
+    // @Autowired
+    private BreedRepository breedRepository;
 
     // konstruktori injektio
-    public DogController(DogRepository dogRepository) {
+    public DogController(DogRepository dogRepository, BreedRepository breedRepository) {
         this.dogRepository = dogRepository;
+        this.breedRepository = breedRepository;
     }
 
     @GetMapping("/main")
@@ -33,19 +37,17 @@ public class DogController {
     @GetMapping("/adddog")
     public String addDogForm(Model model) {
         model.addAttribute("dog", new Dog());
-        // model.addAttribute("breeds", breedRepository.findAll());
+        model.addAttribute("breeds", breedRepository.findAll());
         return "adddog";
     }
 
     @PostMapping("/save")
     public String save(@Valid @ModelAttribute("dog") Dog dog, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            //System.out.println("Errors errors " + dog);
-            //model.addAttribute("dog", dog);
-            // model.addAttribute(breeds, breedRepository.findAll());
+            model.addAttribute("breeds", breedRepository.findAll()); // palauttaa rodut select-valikkoon
+                                                                     // virheilmoituksen jälkeenkin
             return "adddog"; // JOS VIRHE TULEE MINNE PALATAAN?
         }
-        //System.out.println("Save " + dog);
         dogRepository.save(dog);
         return "redirect:/main";
     }
