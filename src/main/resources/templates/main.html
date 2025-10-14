@@ -3,25 +3,44 @@
 	<head>
 		<title>Salmeron Palveluskoirayhdistys ry</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+
 	</head>
 	<body>
 
-     <!--   <h1 th text="'Tervetuloa Salmeron Palveluskoirat ry:n sivuille ' + ${KAYTTAJANNIMI}" + '!'></h1> -->
+     <!--/*   <h1 th:text="'Tervetuloa Salmeron Palveluskoirat ry:n sivuille ' + ${KAYTTAJANNIMI}" + '!'></h1> */-->
 
 
 
-      <h1 th text="'Lista käyttökoiristamme: '"></h1>
 
-     
+      <h1 th:text="'Lista käyttökoiristamme: '"></h1>
+
+     <table>
+		<tr>
+        <th>Id</th>
+        <th>Nimi</th>
+        <th>Sukupuoli</th>
+        <th>Syntymävuosi</th>
+        <th>Omistaja</th>
+        <th>Lajit</th>
+        <th>Kuvaus</th>
+    </tr>
         
+<tr th:each="dog : ${dogs}">
+	<td th:text="${dog.id}">Id</td>
+    <td th:text="${dog.dogname}">Nimi</td>
+    
+	<td th:text="${dog.gender}">Sukupuoli</td>
+    <td th:text="${dog.birthyear}">Syntymävuosi</td>
+	<td th:text="${dog.owner}">Omistaja</td>
+	<td th:text="${dog.activities}">Lajit</td>
+	<td th:text="${dog.description}">Kuvaus</td>
+</tr>
 
 
+</table>
 
-
-
-
-
-<a href="/add" class="btn btn-primary">Lisää koira</a>
+<a href="/adddog" class="btn btn-primary">Lisää koira</a>
 
 
 
