@@ -30,15 +30,23 @@
 
      <!-- Rotu-pudotusvalikko tähän -->
                <tr><td>Rotu:</td>
-               <td><select id="breedlist" th:field="*{breed}">
+               <td><select th:field="*{breed}">
 	          <option th:each="breed: ${breeds}"
 		     th:value="${breed.id}"
 		     th:text="${breed.breedname}"></option>
-               </select></td></tr>
+               </select>
+
+               <a href="#" onclick="AvaaLisaaRotu()" class="btn btn-link p-0">Lisää uusi rotu</a>
+               </td></tr>
+
 
 <tr>
 <td>Sukupuoli:</td>
-<td><input type="text" th:field="*{gender}"/></td>
+<td><select id="genderlist" th:field="*{gender}">
+               <option value="Narttu">Narttu</option>
+               <option value="Uros">Uros</option>
+               <option value="Ei tietoa">Ei tietoa</option>
+               </select></td>
 <td th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="text-danger">Sukupuoli Virheviesti</td>
 </tr>
 
@@ -66,18 +74,37 @@
      <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger">Kuvaus Virheviesti</td>
 </tr>
 
-</div>
+
 </table>
+
 
     <input type="submit" class="btn btn-primary" value="Tallenna"/>
     </form>
 
+</div>
 
 
 
 
 
+<script>
+  function AvaaLisaaRotu() {
+    document.getElementById("newBreedInput").style.display = "block";
+    document.getElementById("addBreedButton").style.display = "inline-block";
+    document.getElementById("breedError").style.display = "none";
+  }
+</script>
 
+
+<br>
+<form th:action="@{/addbreed}" th:object="${breed}" method="POST">
+               <input type="text" th:field="*{breedname}" class="form-control mb-2"
+               id="newBreedInput" placeholder="Syötä tähän uusi rotu" style="display:none;"/>
+
+               <div th:if="${#fields.hasErrors('breedname')}" th:errors="*{breedname}" id="breedError" class="text-danger">Rotu Virheviesti</div>
+
+               <button type="submit" class="btn btn-outline-secondary btn-sm" id="addBreedButton" style="display:none;">Lisää rotu</button>
+               </form>
 
 
 

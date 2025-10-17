@@ -2,7 +2,6 @@ package harjoitustyo.kayttokoirat.domain;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +25,6 @@ public class Dog {
     @JoinColumn(name="breedid")
     private Breed breed; //breed_id tulee tietokannasta/foreignkey
 
-    @NotEmpty(message = "Sukupuoli ei voi olla tyhjä.")
     private String gender;
 
     @Min(value = 2000, message = "Syntymävuosi ei voi olla ennen vuotta 2000.")
@@ -69,6 +67,9 @@ public class Dog {
         this.activities = activities;
         this.description = description;
     }
+
+
+
 
     public Long getId() {
         return id;

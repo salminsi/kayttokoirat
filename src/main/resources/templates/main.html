@@ -31,21 +31,21 @@
 <tr th:each="dog : ${dogs}">
 	<td th:text="${dog.id}">Id</td>
     <td th:text="${dog.dogname}">Nimi</td>
-
-    <td th:text="${dog.breed.breedname}">Nimi</td>
-
+    <td th:text="${dog.breed.breedname}">Rotu</td>
 	<td th:text="${dog.gender}">Sukupuoli</td>
     <td th:text="${dog.birthyear}">Syntymävuosi</td>
 	<td th:text="${dog.owner}">Omistaja</td>
 	<td th:text="${dog.activities}">Lajit</td>
 	<td th:text="${dog.description}">Kuvaus</td>
+    <td><a th:href="@{/edit/{id}(id=${dog.id})}" button type="button" class="btn btn-warning btn-sm">Muokkaa</a></td>
+    <td><a th:href="@{/delete/{id}(id=${dog.id})}" button type="button" class="btn btn-danger btn-sm">Poista</a></td>
 </tr>
 
 
 </div>
 </table>
 
-<a href="/adddog" class="btn btn-primary">Lisää koira</a>
+<a href="/adddog" button type="button" class="btn btn-primary">Lisää koira</a>
 
 
 

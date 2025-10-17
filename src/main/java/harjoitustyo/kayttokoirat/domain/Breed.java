@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
@@ -17,14 +19,14 @@ public class Breed {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Rotu ei saa olla tyhjä")
+    @Size(max = 50, message = "Rotu saa olla enintään 50 merkkiä")
     private String breedname;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "breed")
     private List<Dog> dogs;
 
-    
 
-    
     public Breed() {
     }
 
