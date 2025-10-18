@@ -13,6 +13,7 @@ import harjoitustyo.kayttokoirat.domain.Breed;
 import harjoitustyo.kayttokoirat.domain.BreedRepository;
 import harjoitustyo.kayttokoirat.domain.Dog;
 import harjoitustyo.kayttokoirat.domain.DogRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Controller
@@ -79,6 +80,25 @@ public class DogController {
     public String deleteDog(@PathVariable("id") Long id, Model model) {
         dogRepository.deleteById(id);
         return "redirect:/main";
+    }
+
+    //poistaa rodun ja siirtyy lomakkeelle add
+    
+    @Transactional
+    @PostMapping("/deletebreed")
+    public String deleteBreed(@Valid @ModelAttribute("breed") Breed breed, BindingResult bindingResult, Model model) {
+        String breedname = breed.getBreedname();
+        if (dogRepository.existsByBreed_Breedname(breedname)) {
+        bindingResult.rejectValue("breedname", "error.breedname", "Rotua ei voi poistaa, koska se on jo käytössä.");
+        }
+        if (bindingResult.hasErrors()) {
+        model.addAttribute("dog", new Dog());
+        model.addAttribute("breeds", breedRepository.findAll());
+        return "adddog";
+    }
+
+        breedRepository.deleteByBreedname(breedname);
+        return "redirect:/adddog";
     }
 
 

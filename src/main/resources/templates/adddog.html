@@ -36,7 +36,8 @@
 		     th:text="${breed.breedname}"></option>
                </select>
 
-               <a href="#" onclick="AvaaLisaaRotu()" class="btn btn-link p-0">Lisää uusi rotu</a>
+               <a href="#" onclick="AvaaLisaaRotu()" class="btn btn-link p-0">Lisää uusi rotu</a><br>
+               <a href="#" onclick="AvaaPoistaRotu()" class="btn btn-link p-0">Poista listalta rotu</a>
                </td></tr>
 
 
@@ -79,6 +80,7 @@
 
 
     <input type="submit" class="btn btn-primary" value="Tallenna"/>
+    <tr><a href="/main" button type="button" class="btn btn-primary">Peruuta</a></tr>
     </form>
 
 </div>
@@ -91,19 +93,26 @@
   function AvaaLisaaRotu() {
     document.getElementById("newBreedInput").style.display = "block";
     document.getElementById("addBreedButton").style.display = "inline-block";
-    document.getElementById("breedError").style.display = "none";
+    document.getElementById("BreedError").style.display = "none";
+  }
+  function AvaaPoistaRotu() {
+    document.getElementById("DeleteBreedInput").style.display = "block";
+    document.getElementById("deleteBreedButton").style.display = "inline-block";
   }
 </script>
-
 
 <br>
 <form th:action="@{/addbreed}" th:object="${breed}" method="POST">
                <input type="text" th:field="*{breedname}" class="form-control mb-2"
                id="newBreedInput" placeholder="Syötä tähän uusi rotu" style="display:none;"/>
-
-               <div th:if="${#fields.hasErrors('breedname')}" th:errors="*{breedname}" id="breedError" class="text-danger">Rotu Virheviesti</div>
-
                <button type="submit" class="btn btn-outline-secondary btn-sm" id="addBreedButton" style="display:none;">Lisää rotu</button>
+               <div th:if="${#fields.hasErrors('breedname')}" th:errors="*{breedname}" id="BreedError" class="text-danger">Rotu Virheviesti</div>
+               </form><br>
+
+<form th:action="@{/deletebreed}" th:object="${breed}" method="POST">
+               <input type="text" th:field="*{breedname}" class="form-control mb-2"
+               id="DeleteBreedInput" placeholder="Syötä tähän poistettava rotu" style="display:none;"/>
+               <button type="submit" class="btn btn-danger btn-sm" id="deleteBreedButton" style="display:none;">Poista rotu</button>
                </form>
 
 
