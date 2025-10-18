@@ -102,6 +102,25 @@ public class DogController {
     }
 
 
-    //tee tänne /edit
+    //siirtyy editiin
+    @GetMapping("/edit/{id}")
+    public String editDogForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("dog", dogRepository.findById(id));
+        model.addAttribute("breeds", breedRepository.findAll());
+        return "editdog";
+    }
+
+    //tallenna muokattu koira
+    @PostMapping("/saveedited")
+    public String saveEdited(@Valid @ModelAttribute("dog") Dog dog, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("breeds", breedRepository.findAll()); // palauttaa rodut select-valikkoon virheilmoituksen jälkeenkin
+            model.addAttribute("dog", dog); 
+            model.addAttribute("breed", new Breed());                                                       
+            return "editdog";
+        }
+        dogRepository.save(dog);
+        return "redirect:/main";
+    }
 
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Muokkaa käyttökoiran tietoja</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+          <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+	</head>
+	<body>
+     <div class="container">
+
+     <!--   <h1 th:text="'Täällä voit muokata koiran tietoja, ' + ${KAYTTAJANNIMI}" + '!'></h1> -->
+
+    <p><h1 th:text="'Täällä voit muokata koiran tietoja:'"></h1></p>
+
+    <form th:action="@{/saveedited}" action="#" th:object="${dog}" method="POST">
+
+                <div class="form-group">
+                <label>Koiran nimi:</label>
+			    <input type="text" class="form-control" th:field="*{dogname}" />
+                <div th:if="${#fields.hasErrors('dogname')}" th:errors="*{dogname}" class="text-danger">Koiran nimi Virheviesti</div>
+
+                <div class="form-group">
+                <label>Rotu:</label>
+                <select th:field="*{breed}" class="form-control">
+                <option th:each="breed: ${breeds}" th:value="${breed.id}" th:text="${breed.breedname}"></option>
+			    </select>
+
+                <div class="form-group">
+                <label>Sukupuoli:</label>
+                <select th:field="*{gender}" class="form-control">
+                <option value="Narttu">Narttu</option>
+                <option value="Uros">Uros</option>
+                <option value="Ei tietoa">Ei tietoa</option>
+			    </select>
+
+                <div class="form-group">
+                <label>Syntymävuosi:</label>
+			    <input type="text" class="form-control" th:field="*{birthyear}" />    
+                <div th:if="${#fields.hasErrors('birthyear')}" th:errors="*{birthyear}" class="text-danger">Syntymävuosi Virheviesti</div>
+
+                <div class="form-group">
+                <label>Omistaja:</label>
+			    <input type="text" class="form-control" th:field="*{owner}" />      
+                <div th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}" class="text-danger">Omistaja Virheviesti</div>
+
+                <div class="form-group">
+                <label>Lajit:</label>
+			    <input type="text" class="form-control" th:field="*{activities}" />     
+                <div th:if="${#fields.hasErrors('activities')}" th:errors="*{activities}" class="text-danger">Lajit Virheviesti</div>
+
+                <div class="form-group">
+                <label>Kuvaus:</label>
+			    <input type="text" class="form-control" th:field="*{description}" />     
+                <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger">Kuvaus Virheviesti</div>
+
+                <br><input type="submit" class="btn btn-primary" value="Tallenna"/>
+                <a href="/main" class="btn btn-primary">Peruuta</a>
+    </form>
+
+     <!-- <h1>Kirjautuneena: <span sec:authentication="name"></span></h1>  -->
+     <!-- <h1>Oikeutesi: <span sec:authentication="principal.authorities">[ROOLI_USER, ROOLI_ADMIN]</span></h1>  -->
+
+</div>
+
+</body>
+</html>
