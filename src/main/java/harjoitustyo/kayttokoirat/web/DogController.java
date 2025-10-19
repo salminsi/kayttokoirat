@@ -82,8 +82,7 @@ public class DogController {
         return "redirect:/main";
     }
 
-    //poistaa rodun ja siirtyy lomakkeelle add
-    
+    //poistaa rodun ja siirtyy lomakkeelle add  
     @Transactional
     @PostMapping("/deletebreed")
     public String deleteBreed(@Valid @ModelAttribute("breed") Breed breed, BindingResult bindingResult, Model model) {
@@ -95,8 +94,7 @@ public class DogController {
         model.addAttribute("dog", new Dog());
         model.addAttribute("breeds", breedRepository.findAll());
         return "adddog";
-    }
-
+        }
         breedRepository.deleteByBreedname(breedname);
         return "redirect:/adddog";
     }
