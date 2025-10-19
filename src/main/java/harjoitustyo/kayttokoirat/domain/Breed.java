@@ -3,6 +3,7 @@ package harjoitustyo.kayttokoirat.domain;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +20,7 @@ public class Breed {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     @NotBlank(message = "Rotu ei saa olla tyhjä")
     @Size(max = 50, message = "Rotu saa olla enintään 50 merkkiä")
     private String breedname;

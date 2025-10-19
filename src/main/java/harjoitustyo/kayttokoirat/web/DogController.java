@@ -121,4 +121,12 @@ public class DogController {
         return "redirect:/main";
     }
 
+
+
+
+
+    //error handling alkaa
+
+    
+
 }

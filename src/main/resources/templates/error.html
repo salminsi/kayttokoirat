@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Virhe - Error</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+
+	</head>
+	<body>
+
+
+        <h1>Virhe - Error</h1>
+        <p th:text="${error}">Tuntematon virhe.</p>
+        <a th:href="@{/main}" class="btn btn-primary">Palaa etusivulle</a>
+
+
+
+	</body>
+</html>
