@@ -29,9 +29,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/css/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/dogs**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/dogs**").hasAuthority("admin")
-                        .requestMatchers(HttpMethod.PUT, "/dogs**").hasAuthority("admin")
-                        .requestMatchers(HttpMethod.DELETE, "/dogs**").hasAuthority("admin")
+                        .requestMatchers(HttpMethod.POST, "/dogs**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/dogs**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/dogs**").hasAuthority("ADMIN")
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/signup").permitAll()
                         .requestMatchers("/saveuser").permitAll()
