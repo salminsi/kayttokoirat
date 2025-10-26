@@ -1,6 +1,5 @@
 package harjoitustyo.kayttokoirat.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +29,11 @@ public class DogController {
     public DogController(DogRepository dogRepository, BreedRepository breedRepository) {
         this.dogRepository = dogRepository;
         this.breedRepository = breedRepository;
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 
     @GetMapping("/main")
@@ -131,7 +135,5 @@ public class DogController {
 
 
 
-
-    
 
 }

@@ -1,6 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+	<head>
+		<title>Rekisteröidy käyttäjäksi</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 
-
-
+	</head>
+	<body>
 
 <!-- Lomake/signup-sivu, jossa käyttäjä rekisteröityy. Saa user-oikeudet -->
- <!-- Muista validoida tiedot (form validation, oma luokka käyttäjän tiedoilla) -->
+<!-- Muista validoida tiedot (form validation, oma luokka käyttäjän tiedoilla) -->
+
+<div class="container">
+	<h1>Rekisteröidy</h1>
+    
+		<form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="post">
+				<label> Käyttäjänimi:<input type="text" th:field="*{username}" class="form-control"/></label>
+				<div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger">Username Error</div><br>
+
+
+				<label> Salasana:<input type="password" th:field="*{password}" class="form-control"/></label>
+				<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">Salasana Virheviesti</div><br>
+
+
+				<label> Toista salasana: <input type="password" th:field="*{passwordCheck}" class="form-control"/></label>
+				<div th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}" class="text-danger">Salasana Virheviesti</div><br>
+			
+			<input type="submit" class="btn btn-primary" value="Rekisteröidy"></input>
+            <a href="/main" class="btn btn-primary">Peruuta</a>		
+		</form>
+	</div>
+	
+
+
+
+	</body>
+</html>

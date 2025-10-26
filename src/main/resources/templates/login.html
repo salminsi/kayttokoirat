@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+	<head>
+		<title>Kirjaudu Salmeron Palveluskoirayhdistys ry:n sivustolle</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+
+	</head>
+	<body>
+	<div class="container">
+
+    <div th:if="${param.error}">
+    Virheellinen käyttäjänimi ja/tai salasana.
+    </div>
+
+    <div th:if="${param.logout}">
+    Olet kirjautunut ulos.
+    </div> 
+
+    <p><h5 th:text="'Mukavaa, kun saavuit Salmeron Palveluskoirayhdistys ry:n sivuille! 😊'"></h5>
+    <h6 th:text="'Syötä alkuun käyttäjätunnus ja salasana, kiitos.'"></h6></p>
+
+    <p>
+    <form th:action="@{/login}" method="post">
+        <label> Käyttäjänimi: <input type="text" name="username" class="form-control"/> </label><br>
+        <label> Salasana: <input type="password" name="password" class="form-control"/> </label><br>
+        <input type="submit" class="btn btn-primary" value="Kirjaudu"/></input>
+    </form>
+    </p>
+
+    <a th:href="@{/signup}">Rekisteröidy</a>
+
+
+    </div>
+    </body>
+</html>

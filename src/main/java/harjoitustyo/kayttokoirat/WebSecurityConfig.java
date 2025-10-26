@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-//luokassa tieto minne url-osoitteisiin on pääsyoikeudet
+//tieto minne url-osoitteisiin on pääsyoikeudet
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 
@@ -33,18 +33,18 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/dogs**").hasAuthority("admin")
                         .requestMatchers(HttpMethod.DELETE, "/dogs**").hasAuthority("admin")
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/signup").permitAll() // otan pois jos en tee signup-sivua
+                        .requestMatchers("/signup").permitAll()
+                        .requestMatchers("/saveuser").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults() // kirjautuminen Postmanilla
                 )
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions
                         .disable()) // h2-konsolille
                 )
-                .formLogin(formlogin -> formlogin // If you don't give loginPage your application will use the
-                        //.loginPage("/login") // spring boot default login page.
-                        .defaultSuccessUrl("/main", true) // <-- Tells where to go after successful login
-                        .permitAll()
-                )
+                .formLogin(formlogin -> formlogin 
+                        .loginPage("/login") 
+                        .defaultSuccessUrl("/main", true)
+                        .permitAll())
                 .logout(logout -> logout
                         .permitAll())
                 .csrf(csrf -> csrf.disable() // for h2console.
@@ -52,21 +52,16 @@ public class WebSecurityConfig {
         return http.build();
     }
 
+    // poista myöhemmin nämä loput:
+    private UserDetailsService userDetailsService;
 
+    public WebSecurityConfig(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
-    
-	//poista myöhemmin nämä loput:
-	private UserDetailsService userDetailsService;
-	
-	public WebSecurityConfig(UserDetailsService userDetailsService) {
-		this.userDetailsService = userDetailsService;
-	}
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-	}
-
-
-
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+    }
 
 }

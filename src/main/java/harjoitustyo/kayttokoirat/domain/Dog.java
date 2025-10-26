@@ -40,11 +40,6 @@ public class Dog {
     @Size(min = 1, max = 500, message = "Lyhyt kuvailu koiran ominaisuuksista (max. 500 kirjainta).")
     private String description;
 
-    // rotu tulee breed/breedRepository. Miten saa uuden
-    // lisättyä tai "muu"?
-    // entä lajit? Olisiko myös pudotusvalikko? Samoin sukupuoli??
-
-    // konstruktorit, getterit ja setterit alkaa
 
     public Dog() {
     }
@@ -67,7 +62,6 @@ public class Dog {
         this.activities = activities;
         this.description = description;
     }
-
 
 
 
