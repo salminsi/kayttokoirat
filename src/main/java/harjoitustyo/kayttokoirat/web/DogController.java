@@ -1,6 +1,7 @@
 package harjoitustyo.kayttokoirat.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,6 +40,7 @@ public class DogController {
 
     //siirtyy lomakkeelle add
     @GetMapping("/adddog")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addDogForm(Model model) {
         model.addAttribute("dog", new Dog());
         model.addAttribute("breed", new Breed());
@@ -49,6 +51,7 @@ public class DogController {
     
     //tallentaa rodun ja siirtyy lomakkeelle add
     @PostMapping("/addbreed")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addBreed(@Valid @ModelAttribute("breed") Breed newBreed, BindingResult bindingResult, Model model) {
         if (breedRepository.existsByBreedname(newBreed.getBreedname())) {
         bindingResult.rejectValue("breedname", "error.breedname", "Rotu on jo listalla.");
@@ -64,6 +67,7 @@ public class DogController {
     
 
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String save(@Valid @ModelAttribute("dog") Dog dog, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("breeds", breedRepository.findAll()); // palauttaa rodut select-valikkoon virheilmoituksen jälkeenkin
@@ -77,6 +81,7 @@ public class DogController {
 
 
     @GetMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteDog(@PathVariable("id") Long id, Model model) {
         dogRepository.deleteById(id);
         return "redirect:/main";
@@ -85,6 +90,7 @@ public class DogController {
     //poistaa rodun ja siirtyy lomakkeelle add  
     @Transactional
     @PostMapping("/deletebreed")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteBreed(@Valid @ModelAttribute("breed") Breed breed, BindingResult bindingResult, Model model) {
         String breedname = breed.getBreedname();
         if (dogRepository.existsByBreed_Breedname(breedname)) {
@@ -102,6 +108,7 @@ public class DogController {
 
     //siirtyy editiin
     @GetMapping("/edit/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String editDogForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("dog", dogRepository.findById(id));
         model.addAttribute("breeds", breedRepository.findAll());
@@ -110,6 +117,7 @@ public class DogController {
 
     //tallenna muokattu koira
     @PostMapping("/saveedited")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String saveEdited(@Valid @ModelAttribute("dog") Dog dog, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("breeds", breedRepository.findAll()); // palauttaa rodut select-valikkoon virheilmoituksen jälkeenkin
@@ -123,9 +131,6 @@ public class DogController {
 
 
 
-
-
-    //error handling alkaa
 
     
 

@@ -79,7 +79,7 @@
 </table>
 
 
-    <input type="submit" class="btn btn-primary" value="Tallenna"/>
+    <input type="submit" class="btn btn-success" value="Tallenna"/>
     <tr><a href="/main" button type="button" class="btn btn-primary">Peruuta</a></tr>
     </form>
 
@@ -115,10 +115,14 @@
 
 
 
-     <!-- <h1>Kirjautuneena: <span sec:authentication="name"></span></h1>  -->
-     <!-- <h1>Oikeutesi: <span sec:authentication="principal.authorities">[ROOLI_USER, ROOLI_ADMIN]</span></h1>  -->
+     <p><h6>Kirjautuneena: <span sec:authentication="name"></span>, oikeuksilla: <span sec:authentication="principal.authorities"></span>.</h6></p>
+
+    
+    <form th:action="@{/logout}" method="post">
+	<input type="submit" class="btn btn-danger btn-sm" value="Kirjaudu ulos"/>
+    </form>
 
 
 </div>
-	</body>
+</body>
 </html>

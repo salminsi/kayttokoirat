@@ -55,12 +55,20 @@
 			    <input type="text" class="form-control" th:field="*{description}" />     
                 <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger">Kuvaus Virheviesti</div>
 
-                <br><input type="submit" class="btn btn-primary" value="Tallenna"/>
+                <br><input type="submit" class="btn btn-success" value="Tallenna"/>
                 <a href="/main" class="btn btn-primary">Peruuta</a>
     </form>
 
-     <!-- <h1>Kirjautuneena: <span sec:authentication="name"></span></h1>  -->
-     <!-- <h1>Oikeutesi: <span sec:authentication="principal.authorities">[ROOLI_USER, ROOLI_ADMIN]</span></h1>  -->
+
+
+
+    <p><h6>Kirjautuneena: <span sec:authentication="name"></span>, oikeuksilla: <span sec:authentication="principal.authorities"></span>.</h6></p>
+
+    
+    <form th:action="@{/logout}" method="post">
+	<input type="submit" class="btn btn-danger btn-sm" value="Kirjaudu ulos"/>
+    </form>
+
 
 </div>
 

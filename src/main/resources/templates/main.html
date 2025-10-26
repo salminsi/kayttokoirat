@@ -9,12 +9,12 @@
 	<body>
 	<div class="container">
 
-     <!--/*   <h1 th:text="'Tervetuloa Salmeron Palveluskoirat ry:n sivuille ' + ${KAYTTAJANNIMI} + '!'"></h1> */-->
+<h1 th:text="'Tervetuloa Salmeron Palveluskoirat ry:n sivuille!'"></h1>
 
 
 
 
-    <p><h1 th:text="'Lista käyttökoiristamme: '"></h1></p>
+    <p><h3 th:text="'Lista käyttökoiristamme: '"></h3></p>
 
      <table class="table table-bordered">
 		<tr>
@@ -37,20 +37,24 @@
 	<td th:text="${dog.owner}">Omistaja</td>
 	<td th:text="${dog.activities}">Lajit</td>
 	<td th:text="${dog.description}">Kuvaus</td>
-    <td><a th:href="@{/edit/{id}(id=${dog.id})}" button type="button" class="btn btn-warning btn-sm">Muokkaa</a></td>
-    <td><a th:href="@{/delete/{id}(id=${dog.id})}" button type="button" class="btn btn-danger btn-sm">Poista</a></td>
+    <td sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/edit/{id}(id=${dog.id})}" button type="button" class="btn btn-warning btn-sm">Muokkaa</a></td>
+    <td sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/delete/{id}(id=${dog.id})}" button type="button" class="btn btn-danger btn-sm">Poista</a></td>
 </tr>
 
 
 </div>
 </table>
 
-<a href="/adddog" button type="button" class="btn btn-primary">Lisää koira</a>
+<a sec:authorize="hasAuthority ('ADMIN')" href="/adddog" button type="button" class="btn btn-primary">Lisää koira</a>
 
 
 
-     <!-- <h1>Kirjautuneena: <span sec:authentication="name"></span></h1>  -->
-     <!-- <h1>Oikeutesi: <span sec:authentication="principal.authorities">[ROOLI_USER, ROOLI_ADMIN]</span></h1>  -->
+<p><h6>Kirjautuneena: <span sec:authentication="name"></span>, oikeuksilla: <span sec:authentication="principal.authorities"></span>.</h6></p>
+
+    
+    <form th:action="@{/logout}" method="post">
+	<input type="submit" class="btn btn-danger btn-sm" value="Kirjaudu ulos"/>
+    </form>
 
 
 
