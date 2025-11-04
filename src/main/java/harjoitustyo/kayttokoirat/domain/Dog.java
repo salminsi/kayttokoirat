@@ -3,6 +3,7 @@ package harjoitustyo.kayttokoirat.domain;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +32,7 @@ public class Dog {
     @Max(value = 2030, message = "Syntymävuosi ei voi olla tulevaisuudessa.")
     private int birthyear;
 
+    @Column(name = "dogowner")
     @Size(min = 2, max = 50, message = "Kirjaimia tulee olla 2-50.")
     private String owner;
 

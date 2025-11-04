@@ -20,9 +20,9 @@ import jakarta.validation.Valid;
 
 public class DogController {
 
-    //@Autowired
+
     private DogRepository dogRepository;
-    //@Autowired
+
     private BreedRepository breedRepository;
 
     // konstruktori injektio

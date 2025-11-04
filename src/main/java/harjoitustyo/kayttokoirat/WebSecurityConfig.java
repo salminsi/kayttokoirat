@@ -41,8 +41,8 @@ public class WebSecurityConfig {
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions
                         .disable()) // h2-konsolille
                 )
-                .formLogin(formlogin -> formlogin 
-                        .loginPage("/login") 
+                .formLogin(formlogin -> formlogin
+                        .loginPage("/login")
                         .defaultSuccessUrl("/main", true)
                         .permitAll())
                 .logout(logout -> logout
@@ -52,7 +52,6 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    // poista myöhemmin nämä loput:
     private UserDetailsService userDetailsService;
 
     public WebSecurityConfig(UserDetailsService userDetailsService) {

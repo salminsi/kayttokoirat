@@ -3,23 +3,23 @@ package harjoitustyo.kayttokoirat.domain;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "Appuser")
 
-public class AppUser { 
-	
+public class AppUser {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false, updatable = false)
+	@Column(nullable = false, updatable = false)
 	private Long id;
-	
-	@Column(name = "username", nullable = false, unique = true)
+
+	@Column(nullable = false)
 	private String username;
-	
+
 	@Column(name = "app_password", nullable = false)
 	private String passwordHash;
-	
+
 	@Column(name = "app_role", nullable = false)
 	private String role;
-
 
 	public AppUser() {
 	}
@@ -30,7 +30,6 @@ public class AppUser {
 		this.role = role;
 	}
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -68,6 +67,5 @@ public class AppUser {
 		return "AppUser [id=" + id + ", username=" + username + ", passwordHash=" + passwordHash + ", role=" + role
 				+ "]";
 	}
-	
 
 }
