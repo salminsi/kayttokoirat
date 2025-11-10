@@ -14,7 +14,7 @@ import harjoitustyo.kayttokoirat.domain.Dog;
 import harjoitustyo.kayttokoirat.domain.DogRepository;
 import jakarta.transaction.Transactional;
 
-@SpringBootTest // kokeile toimiiko tilalla @DataJpaTest
+@SpringBootTest 
 @Transactional  //ei pysyviä muutoksia
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // OIKEA TIETOKANTA
 
