@@ -8,11 +8,11 @@ public class SignupForm {
     private String username = "";
 
     @NotEmpty(message = "Salasana ei voi olla tyhjä.")
-    @Size(min = 7, max = 30, message = "Kirjaimia tulee olla 7-30.")
+    @Size(min = 4, max = 30, message = "Kirjaimia tulee olla 4-30.")
     private String password = "";
 
     @NotEmpty(message = "Salasana ei voi olla tyhjä.")
-    @Size(min = 7, max = 30, message = "Kirjaimia tulee olla 7-30.")
+    @Size(min = 4, max = 30, message = "Kirjaimia tulee olla 4-30.")
     private String passwordCheck = "";
 
     @NotEmpty
